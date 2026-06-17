@@ -42,8 +42,8 @@ export default function RootLayout({
               <div>
                 <h4 className="text-orange-600 font-bold mb-2">Contato</h4>
                 <p className="text-sm">
-                  <a href="https://wa.me/5531999999999" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:text-orange-500 transition">
-                    💬 WhatsApp: (31) 9999-9999
+                  <a href="https://wa.me/5571981945017" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:text-orange-500 transition">
+                    💬 WhatsApp: (71) 98194-5017
                   </a>
                 </p>
               </div>

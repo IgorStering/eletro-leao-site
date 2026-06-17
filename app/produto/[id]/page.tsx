@@ -28,7 +28,7 @@ export default function ProductPage() {
     currency: 'BRL',
   }).format(product.preco);
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5531999999999';
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5571981945017';
   const whatsappMessage = encodeURIComponent(
     `Olá! Tenho interesse no produto: ${product.nome_produto}\n\nMarca: ${product.marca}\nPreço: ${formattedPrice}\n\nPode me enviar mais informações?`
   );

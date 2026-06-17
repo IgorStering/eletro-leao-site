@@ -54,3 +54,5 @@ Thumbs.db
 
 # IDE settings
 .vscode/settings.json
+
+.vercel

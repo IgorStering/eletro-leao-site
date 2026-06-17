@@ -20,7 +20,7 @@ export default function Header() {
             <Link href="/" className="hover:text-orange-600 transition font-semibold">
               Catálogo
             </Link>
-            <a href="tel:+5531999999999" className="hover:text-orange-600 transition font-semibold">
+            <a href="tel:+5571981945017" className="hover:text-orange-600 transition font-semibold">
               Contato
             </a>
           </nav>
