@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ Eletro Leão - Catálogo Online
 
-## Getting Started
+Site de catálogo de produtos eletrônicos conectado a Google Sheets.
 
-First, run the development server:
+## 🚀 Quick Start
+
+### 1. Configurar variáveis de ambiente
+
+Copie o `.env.example` para `.env.local` e preencha:
+
+```bash
+cp .env.example .env.local
+```
+
+Adicione suas chaves:
+- `GOOGLE_SHEETS_API_KEY` - [Google Cloud Console](https://console.cloud.google.com)
+- `UNSPLASH_API_KEY` - [Unsplash Developers](https://unsplash.com/developers)
+
+### 2. Sincronizar produtos
+
+```bash
+npm run sync
+```
+
+### 3. Baixar imagens
+
+```bash
+npm run download-images
+```
+
+### 4. Desenvolver localmente
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Estrutura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/                  # Páginas Next.js
+│  ├── page.tsx          # Catálogo
+│  └── product/[id]/     # Detalhes do produto
+├── components/          # Componentes React
+├── lib/                 # Funções utilitárias
+├── data/                # products.json (sincronizado)
+├── scripts/             # Scripts de sincronização
+└── public/images/       # Imagens dos produtos
+```
 
-## Learn More
+## 🔧 Comandos
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` - Desenvolver localmente
+- `npm run build` - Build para produção
+- `npm run sync` - Sincronizar Google Sheets
+- `npm run download-images` - Baixar imagens do Unsplash
+- `npm run lint` - Verificar código
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📚 Documentação Completa
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Veja [docs/SETUP.md](docs/SETUP.md) para instruções detalhadas.
 
-## Deploy on Vercel
+## 🚀 Deploy no Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push no GitHub
+2. Conectar ao Vercel
+3. Adicionar variáveis de ambiente
+4. Deploy automático!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Notas
+
+- Atualize produtos na Google Sheets
+- Execute `npm run sync && npm run download-images`
+- Commit e push para auto-deploy no Vercel
+
+---
+
+Desenvolvido com ❤️ usando Next.js + Tailwind CSS
