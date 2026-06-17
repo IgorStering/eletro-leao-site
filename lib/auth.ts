@@ -1,5 +1,5 @@
 export const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@eletrolao.com';
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Eletr0l3@o';
 
 export function validateCredentials(email: string, password: string): boolean {
   return email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
