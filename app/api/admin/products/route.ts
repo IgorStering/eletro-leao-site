@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       categoria: body.categoria,
       marca: body.marca,
       descricao: body.descricao,
-      preco: parseFloat(body.preco),
+      preco: body.preco,
       estoque: 5, // Padrão
       diferenciais: body.diferenciais,
       imagem: body.imagem,
