@@ -52,7 +52,7 @@ export async function getGoogleSheetsData(): Promise<Product[]> {
 
         return product;
       })
-      .filter((p) => p.produto_id && p.nome_produto && p.ativo);
+      .filter((p: Product) => p.produto_id && p.nome_produto && p.ativo);
 
     console.log(`✓ Loaded ${products.length} products from Google Sheets`);
     return products;
