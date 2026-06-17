@@ -59,7 +59,7 @@ export default function Home() {
               placeholder="Pesquisar produtos..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 outline-none focus:ring-2 focus:ring-orange-600"
+              className="flex-1 px-4 py-3 rounded-lg bg-white text-gray-900 outline-none focus:ring-2 focus:ring-orange-600"
             />
             <button className="bg-orange-600 hover:bg-orange-700 text-white px-6 rounded-lg font-semibold transition">
               🔍
