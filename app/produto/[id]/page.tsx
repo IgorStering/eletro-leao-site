@@ -26,7 +26,7 @@ export default function ProductPage() {
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  }).format(product.preco);
+  }).format(parseFloat(product.preco));
 
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5571981945017';
   const whatsappMessage = encodeURIComponent(

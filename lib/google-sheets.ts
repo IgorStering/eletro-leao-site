@@ -42,7 +42,7 @@ export async function getGoogleSheetsData(): Promise<Product[]> {
           categoria: String(rowData['categoria'] || '').trim(),
           marca: String(rowData['marca'] || '').trim(),
           descricao: String(rowData['descricao'] || '').trim(),
-          preco: parseFloat(String(rowData['preco'] || '0')) || 0,
+          preco: String(rowData['preco'] || '0').trim(),
           estoque: parseInt(String(rowData['estoque'] || '0')) || 0,
           diferenciais: String(rowData['diferenciais'] || '').trim(),
           ativo:

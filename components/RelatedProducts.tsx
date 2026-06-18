@@ -25,7 +25,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
           const formattedPrice = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-          }).format(product.preco);
+          }).format(parseFloat(product.preco));
 
           return (
             <Link key={product.id} href={`/product/${product.id}`}>

@@ -121,7 +121,7 @@ export default function Home() {
                 const formattedPrice = new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
-                }).format(product.preco);
+                }).format(parseFloat(product.preco));
 
                 return (
                   <Link

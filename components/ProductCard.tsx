@@ -10,7 +10,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  }).format(product.preco);
+  }).format(parseFloat(product.preco));
 
   const diferenciais = product.diferenciais
     .split(',')

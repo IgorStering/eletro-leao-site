@@ -21,7 +21,7 @@ export default function ProductModal({
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  }).format(product.preco);
+  }).format(parseFloat(product.preco));
 
   const whatsappMessage = encodeURIComponent(
     `Olá! Tenho interesse no produto: ${product.nome_produto}\n\nMarca: ${product.marca}\nPreço: ${formattedPrice}\n\nPode me enviar mais informações?`

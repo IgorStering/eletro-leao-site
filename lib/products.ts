@@ -39,11 +39,11 @@ export function filterProducts(filters: ProductFilter): Product[] {
   }
 
   if (filters.preco_min !== undefined) {
-    products = products.filter((p) => p.preco >= filters.preco_min!);
+    products = products.filter((p) => parseFloat(p.preco) >= filters.preco_min!);
   }
 
   if (filters.preco_max !== undefined) {
-    products = products.filter((p) => p.preco <= filters.preco_max!);
+    products = products.filter((p) => parseFloat(p.preco) <= filters.preco_max!);
   }
 
   return products.sort((a, b) => a.nome_produto.localeCompare(b.nome_produto));
@@ -63,7 +63,7 @@ export function getPriceRange(): { min: number; max: number } {
   const products = getAllProducts();
   if (products.length === 0) return { min: 0, max: 0 };
 
-  const prices = products.map((p) => p.preco);
+  const prices = products.map((p) => parseFloat(p.preco));
   return {
     min: Math.min(...prices),
     max: Math.max(...prices),
