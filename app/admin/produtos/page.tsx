@@ -49,41 +49,6 @@ export default function ProdutosPage() {
     setLoading(false);
   };
 
-  const handleToggleStatus = async (id: number, ativo: boolean) => {
-    try {
-      const token = getAuthToken();
-      console.log('Token:', token);
-      console.log('Fazendo PATCH para:', `/api/admin/products/${id}`);
-
-      const response = await fetch(`/api/admin/products/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ ativo: !ativo }),
-      });
-
-      console.log('Response status:', response.status);
-      console.log('Response ok:', response.ok);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Produto atualizado:', data);
-        setProducts((prev) =>
-          prev.map((p) => (p.id === id ? { ...p, ativo: !ativo } : p))
-        );
-      } else {
-        const errorData = await response.text();
-        console.error('Erro na resposta:', errorData);
-        alert('Erro ao atualizar produto: ' + response.status);
-      }
-    } catch (error) {
-      console.error('Erro ao atualizar produto:', error);
-      alert('Erro ao atualizar produto: ' + error);
-    }
-  };
-
   const handleDelete = async (id: number) => {
     if (!confirm('Tem certeza que deseja deletar este produto?')) {
       return;
@@ -194,9 +159,6 @@ export default function ProdutosPage() {
                       Preço
                     </th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
                       Ações
                     </th>
                   </tr>
@@ -205,9 +167,7 @@ export default function ProdutosPage() {
                   {products.map((product) => (
                     <tr
                       key={product.id}
-                      className={`border-b border-gray-200 hover:bg-gray-50 transition ${
-                        !product.ativo ? 'bg-gray-50 opacity-60' : ''
-                      }`}
+                      className="border-b border-gray-200 hover:bg-gray-50 transition"
                     >
                       <td className="px-6 py-4">
                         <div>
@@ -226,20 +186,6 @@ export default function ProdutosPage() {
                         <p className="font-semibold text-gray-900">
                           R$ {parseFloat(product.preco).toFixed(2)}
                         </p>
-                      </td>
-                      <td className="px-6 py-4">
-                        <button
-                          onClick={() =>
-                            handleToggleStatus(product.id, product.ativo)
-                          }
-                          className={`px-3 py-1 rounded-full text-sm font-semibold transition ${
-                            product.ativo
-                              ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                              : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-                          }`}
-                        >
-                          {product.ativo ? '✓ Ativo' : '○ Inativo'}
-                        </button>
                       </td>
                       <td className="px-6 py-4">
                         <button

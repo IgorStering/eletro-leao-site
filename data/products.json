@@ -13,7 +13,7 @@
       "estoque": 8,
       "diferenciais": "Inverter, 12.000 BTUs, Ciclo frio, Economia de energia, Instalação incluída",
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_971084-MLA112458464029_052026-F.webp",
-      "ativo": false
+      "ativo": true
     },
     {
       "id": 2,
