@@ -51,23 +51,36 @@ export default function ProdutosPage() {
 
   const handleToggleStatus = async (id: number, ativo: boolean) => {
     try {
+      const token = getAuthToken();
+      console.log('Token:', token);
+      console.log('Fazendo PATCH para:', `/api/admin/products/${id}`);
+
       const response = await fetch(`/api/admin/products/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getAuthToken()}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ ativo: !ativo }),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+
       if (response.ok) {
+        const data = await response.json();
+        console.log('Produto atualizado:', data);
         setProducts((prev) =>
           prev.map((p) => (p.id === id ? { ...p, ativo: !ativo } : p))
         );
+      } else {
+        const errorData = await response.text();
+        console.error('Erro na resposta:', errorData);
+        alert('Erro ao atualizar produto: ' + response.status);
       }
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
-      alert('Erro ao atualizar produto');
+      alert('Erro ao atualizar produto: ' + error);
     }
   };
 
