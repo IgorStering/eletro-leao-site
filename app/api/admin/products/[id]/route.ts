@@ -25,7 +25,7 @@ function validateAuth(request: NextRequest): boolean {
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     if (!validateAuth(request)) {
@@ -35,7 +35,8 @@ export async function PATCH(
       );
     }
 
-    const id = parseInt(params.id);
+    const { id: idString } = await params;
+    const id = parseInt(idString);
     const body = await request.json();
 
     const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
@@ -71,7 +72,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     if (!validateAuth(request)) {
@@ -81,7 +82,8 @@ export async function DELETE(
       );
     }
 
-    const id = parseInt(params.id);
+    const { id: idString } = await params;
+    const id = parseInt(idString);
 
     const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
     const products: Product[] = JSON.parse(fileContent);
