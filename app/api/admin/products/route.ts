@@ -36,7 +36,10 @@ export async function GET(request: NextRequest) {
     }
 
     const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
-    const products: Product[] = JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
+
+    // Suporta ambos os formatos: array direto ou { products: [...] }
+    const products: Product[] = Array.isArray(data) ? data : (data.products || []);
 
     return NextResponse.json({ products });
   } catch (error) {
@@ -69,7 +72,10 @@ export async function POST(request: NextRequest) {
 
     // Lê o arquivo atual
     const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
-    const products: Product[] = JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
+
+    // Suporta ambos os formatos
+    let products: Product[] = Array.isArray(data) ? data : (data.products || []);
 
     // Gera novo ID
     const newId = Math.max(...products.map((p) => p.id), 0) + 1;
@@ -93,8 +99,25 @@ export async function POST(request: NextRequest) {
     // Adiciona o novo produto
     products.push(newProduct);
 
-    // Salva o arquivo
-    writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    // Salva o arquivo com a estrutura original se for um objeto
+    const fileData = JSON.parse(fileContent);
+    if (Array.isArray(fileData)) {
+      writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    } else {
+      // Mantém a estrutura original com metadados
+      writeFileSync(
+        PRODUCTS_FILE,
+        JSON.stringify(
+          {
+            lastSync: new Date().toISOString().split('T')[0],
+            totalProducts: products.length,
+            products,
+          },
+          null,
+          2
+        )
+      );
+    }
 
     return NextResponse.json(
       { message: 'Produto cadastrado com sucesso', product: newProduct },

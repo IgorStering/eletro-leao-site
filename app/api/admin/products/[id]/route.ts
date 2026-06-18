@@ -40,7 +40,10 @@ export async function PATCH(
     const body = await request.json();
 
     const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
-    const products: Product[] = JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
+
+    // Suporta ambos os formatos
+    let products: Product[] = Array.isArray(data) ? data : (data.products || []);
 
     const productIndex = products.findIndex((p) => p.id === id);
     if (productIndex === -1) {
@@ -55,7 +58,23 @@ export async function PATCH(
       products[productIndex].ativo = body.ativo;
     }
 
-    writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    // Salva com a estrutura original
+    if (Array.isArray(data)) {
+      writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    } else {
+      writeFileSync(
+        PRODUCTS_FILE,
+        JSON.stringify(
+          {
+            lastSync: new Date().toISOString().split('T')[0],
+            totalProducts: products.length,
+            products,
+          },
+          null,
+          2
+        )
+      );
+    }
 
     return NextResponse.json({
       message: 'Produto atualizado com sucesso',
@@ -86,7 +105,10 @@ export async function DELETE(
     const id = parseInt(idString);
 
     const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
-    const products: Product[] = JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
+
+    // Suporta ambos os formatos
+    let products: Product[] = Array.isArray(data) ? data : (data.products || []);
 
     const productIndex = products.findIndex((p) => p.id === id);
     if (productIndex === -1) {
@@ -98,7 +120,23 @@ export async function DELETE(
 
     const deletedProduct = products.splice(productIndex, 1)[0];
 
-    writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    // Salva com a estrutura original
+    if (Array.isArray(data)) {
+      writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    } else {
+      writeFileSync(
+        PRODUCTS_FILE,
+        JSON.stringify(
+          {
+            lastSync: new Date().toISOString().split('T')[0],
+            totalProducts: products.length,
+            products,
+          },
+          null,
+          2
+        )
+      );
+    }
 
     return NextResponse.json({
       message: 'Produto deletado com sucesso',
