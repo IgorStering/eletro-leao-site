@@ -109,6 +109,12 @@ export default function AdminPage() {
           </div>
           <div className="flex gap-4">
             <Link
+              href="/admin/produtos"
+              className="hover:text-orange-600 transition font-semibold"
+            >
+              Gerenciar
+            </Link>
+            <Link
               href="/"
               className="hover:text-orange-600 transition font-semibold"
             >

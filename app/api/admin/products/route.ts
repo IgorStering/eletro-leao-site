@@ -26,6 +26,28 @@ function validateAuth(request: NextRequest): boolean {
   return authHeader === 'Bearer authorized';
 }
 
+export async function GET(request: NextRequest) {
+  try {
+    if (!validateAuth(request)) {
+      return NextResponse.json(
+        { error: 'Não autorizado' },
+        { status: 401 }
+      );
+    }
+
+    const fileContent = readFileSync(PRODUCTS_FILE, 'utf-8');
+    const products: Product[] = JSON.parse(fileContent);
+
+    return NextResponse.json({ products });
+  } catch (error) {
+    console.error('Erro ao listar produtos:', error);
+    return NextResponse.json(
+      { error: 'Erro ao listar produtos' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!validateAuth(request)) {
@@ -62,7 +84,7 @@ export async function POST(request: NextRequest) {
       marca: body.marca,
       descricao: body.descricao,
       preco: body.preco,
-      estoque: 5, // Padrão
+      estoque: 5,
       diferenciais: body.diferenciais,
       imagem: body.imagem,
       ativo: true,
